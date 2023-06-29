@@ -20,8 +20,8 @@ List<CategoryModel> getCategories()
 
   //3
   categoryModel = new CategoryModel();
-  categoryModel.categoryName = "General";
-  categoryModel.imageUrl = "https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60";
+  categoryModel.categoryName = "World Affairs";
+  categoryModel.imageUrl = "https://images.unsplash.com/photo-1600907055749-d6cc7e75efd4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHdvcmxkJTIwYWZmYWlyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60";
   myCategories.add(categoryModel);
 
   //4
