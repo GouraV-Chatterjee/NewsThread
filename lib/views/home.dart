@@ -6,6 +6,7 @@ import 'article_view.dart';
 import '../helper/news.dart';
 import 'category_news.dart';
 import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -123,7 +124,13 @@ class CategoryTile extends StatelessWidget {
           children: <Widget>[
             ClipRRect(
                 borderRadius: BorderRadius.circular(6),
-                child: Image.network(imageUrl,width:120,height: 60,fit: BoxFit.cover,)),
+                child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                height: 60,
+                  width: 120,
+                fit: BoxFit.cover,
+                ),
+            ),
             Container(
               alignment: Alignment.center,
               width: 120,height: 60,

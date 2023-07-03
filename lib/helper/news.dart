@@ -11,28 +11,56 @@ class News
   var news = <ArticleModel>[];
 
   Future<void> getNews() async{
-    final url = Uri.parse("https://newsapi.org/v2/top-headlines?country=in&apiKey=f84c23faa8964d279a14ab55d5f48061");
-    var response = await http.get(url);
+
+    var header ={
+      'x-api-key' : '1pkmyjgnhqc18wBcIoJzB8eVdkuwTbzLMfU6E7-h9EY'
+    };
+
+    final url1 = Uri.parse("https://api.newscatcherapi.com/v2/latest_headlines?countries=IN&topic=news&lang=en");
+    var response = await http.get(url1,headers: header);
     var jsonData = jsonDecode(response.body);
 
       if(jsonData['status'] == "ok")
       {
+        print(jsonData);
         jsonData["articles"].forEach((element){
 
-        if(element['urlToImage']!=null && element['description']!=null && element['url']!=null && element['content']!=null && element['title']!=null){
+        if(element['media']!=null && element['excerpt']!=null && element['link']!=null && element['summary']!=null && element['title']!=null){
 
             ArticleModel articleModel = ArticleModel(
                 title: element['title'],
                 author: element['author'],
-                description: element['description'],
-                url: element["url"],
-                urlToImage: element['urlToImage'],
-                content: element["content"],
+                description: element['excerpt'],
+                url: element["link"],
+                urlToImage: element['media'],
+                content: element["summary"],
             );
             news.add(articleModel);
           }
         });
       }
+
+    final url2 = Uri.parse("https://newsapi.org/v2/top-headlines?country=in&apiKey=f84c23faa8964d279a14ab55d5f48061");
+    response = await http.get(url2);
+    jsonData = jsonDecode(response.body);
+
+    if(jsonData['status'] == "ok") {
+      jsonData["articles"].forEach((element) {
+        if (element['urlToImage'] != null && element['description'] != null &&
+            element['url'] != null && element['content'] != null &&
+            element['title'] != null) {
+          ArticleModel articleModel = ArticleModel(
+            title: element['title'],
+            author: element['author'],
+            description: element['description'],
+            url: element["url"],
+            urlToImage: element['urlToImage'],
+            content: element["content"],
+          );
+          news.add(articleModel);
+        }
+      });
+    }
   }
 }
 
@@ -41,65 +69,44 @@ class CategoryNewsClass
   var news = <ArticleModel>[];
   HashSet<String> unique = HashSet<String>();
 
+  var header ={
+    'x-api-key' : '1pkmyjgnhqc18wBcIoJzB8eVdkuwTbzLMfU6E7-h9EY'
+  };
+
   Future<void> getNews(String category) async{
 
     if(category=='world affairs')
     {
       unique.clear();
-      // final url2 = Uri.parse("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=f84c23faa8964d279a14ab55d5f48061");
-      //
-      // var response2 = await http.get(url2);
-      // var jsonData2 = jsonDecode(response2.body);
-      //
-      // if(jsonData2['status'] == "ok")
-      // {
-      //   jsonData2["articles"].forEach((element){
-      //
-      //     if(element['urlToImage']!=null && element['description']!=null && element['url']!=null && element['content']!=null && element['title']!=null && !unique.contains(element["title"])){
-      //
-      //       ArticleModel articleModel = ArticleModel(
-      //         title: element['title'],
-      //         author: element['author'],
-      //         description: element['description'],
-      //         url: element["url"],
-      //         urlToImage: element['urlToImage'],
-      //         content: element["content"],
-      //       );
-      //       news.add(articleModel);
-      //       unique.add(element["title"]);
-      //     }
-      //   });
-      // }
-
-      var countries = ['us','gb'];
+      var countries = ['US','GB','IN'];
 
       for(int i=0 ; i<countries.length;i++)
         {
           var country = countries[i];
-          var url = Uri.parse("https://newsapi.org/v2/top-headlines?country=$country&apiKey=f84c23faa8964d279a14ab55d5f48061");
-          var response = await http.get(url);
+          final url = Uri.parse("https://api.newscatcherapi.com/v2/latest_headlines?countries=$country&topic=world&lang=en");
+          var response = await http.get(url,headers: header);
           var jsonData = jsonDecode(response.body);
 
           if(jsonData['status'] == "ok")
           {
             jsonData["articles"].forEach((element){
 
-              if(element['urlToImage']!=null && element['description']!=null && element['url']!=null && element['content']!=null && element['title']!=null && !unique.contains(element["title"])){
+              if(element['media']!=null && element['excerpt']!=null && element['link']!=null && element['summary']!=null && element['title']!=null){
 
                 ArticleModel articleModel = ArticleModel(
                   title: element['title'],
                   author: element['author'],
-                  description: element['description'],
-                  url: element["url"],
-                  urlToImage: element['urlToImage'],
-                  content: element["content"],
+                  description: element['excerpt'],
+                  url: element["link"],
+                  urlToImage: element['media'],
+                  content: element["summary"],
                 );
                 news.add(articleModel);
-                unique.add(element["title"]);
               }
             });
           }
         }
+      news.shuffle();
       return ;
     }
 
@@ -129,11 +136,11 @@ class CategoryNewsClass
       });
     }
 
-    if(category.compareTo('technology') == 0)
+    if(category=="technology")
       {
-        final url2 = Uri.parse("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=f84c23faa8964d279a14ab55d5f48061");
+        final url2 = Uri.parse("https://api.newscatcherapi.com/v2/latest_headlines?countries=IN&topic=tech&lang=en");
 
-        var response2 = await http.get(url2);
+        var response2 = await http.get(url2,headers: header);
         var jsonData2 = jsonDecode(response2.body);
 
 
@@ -141,21 +148,20 @@ class CategoryNewsClass
         {
           jsonData2["articles"].forEach((element){
 
-            if(element['urlToImage']!=null && element['description']!=null && element['url']!=null && element['content']!=null && element['title']!=null){
+                if(element['media']!=null && element['excerpt']!=null && element['link']!=null && element['summary']!=null && element['title']!=null){
 
-              ArticleModel articleModel = ArticleModel(
-                  title: element['title'],
-                  author: element['author'],
-                  description: element['description'],
-                  url: element["url"],
-                  urlToImage: element['urlToImage'],
-                  content: element["content"],
-              );
-              news.add(articleModel);
-            }
-          });
+                    ArticleModel articleModel = ArticleModel(
+                        title: element['title'],
+                        author: element['author'],
+                        description: element['excerpt'],
+                        url: element["link"],
+                        urlToImage: element['media'],
+                        content: element["summary"],
+                    );
+                    news.add(articleModel);
+                  }
+                });
         }
-
         news.shuffle();
       }
   }
