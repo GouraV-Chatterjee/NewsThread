@@ -13,7 +13,7 @@ class News
   Future<void> getNews() async{
 
     var header ={
-      'x-api-key' : '1pkmyjgnhqc18wBcIoJzB8eVdkuwTbzLMfU6E7-h9EY'
+      'x-api-key' : 'EkkYTcdYjr7BAlU-JD9SGR7fUpxxeBQpcwALhlFeEog'
     };
 
     final url1 = Uri.parse("https://api.newscatcherapi.com/v2/latest_headlines?countries=IN&topic=news&lang=en");
@@ -70,10 +70,64 @@ class CategoryNewsClass
   HashSet<String> unique = HashSet<String>();
 
   var header ={
-    'x-api-key' : '1pkmyjgnhqc18wBcIoJzB8eVdkuwTbzLMfU6E7-h9EY'
+    'x-api-key' : 'EkkYTcdYjr7BAlU-JD9SGR7fUpxxeBQpcwALhlFeEog'
   };
 
   Future<void> getNews(String category) async{
+
+    if(category == "finance")
+      {
+        final url = Uri.parse("https://api.newscatcherapi.com/v2/latest_headlines?countries=IN&topic=finance&lang=en");
+        var response = await http.get(url,headers: header);
+        var jsonData = jsonDecode(response.body);
+
+        if(jsonData['status'] == "ok")
+        {
+          jsonData["articles"].forEach((element){
+
+            if(element['media']!=null && element['excerpt']!=null && element['link']!=null && element['summary']!=null && element['title']!=null){
+
+              ArticleModel articleModel = ArticleModel(
+                title: element['title'],
+                author: element['author'],
+                description: element['excerpt'],
+                url: element["link"],
+                urlToImage: element['media'],
+                content: element["summary"],
+              );
+              news.add(articleModel);
+            }
+          });
+        }
+        return ;
+      }
+
+    if(category=="politics")
+      {
+        final url = Uri.parse("https://api.newscatcherapi.com/v2/latest_headlines?countries=IN&topic=politics&lang=en");
+        var response = await http.get(url,headers: header);
+        var jsonData = jsonDecode(response.body);
+
+        if(jsonData['status'] == "ok")
+        {
+          jsonData["articles"].forEach((element){
+
+            if(element['media']!=null && element['excerpt']!=null && element['link']!=null && element['summary']!=null && element['title']!=null){
+
+              ArticleModel articleModel = ArticleModel(
+                title: element['title'],
+                author: element['author'],
+                description: element['excerpt'],
+                url: element["link"],
+                urlToImage: element['media'],
+                content: element["summary"],
+              );
+              news.add(articleModel);
+            }
+          });
+        }
+        return ;
+      }
 
     if(category=='world affairs')
     {
