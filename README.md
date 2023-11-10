@@ -1,17 +1,8 @@
-# newsthread
-
+# News Thread
 A news app made using Flutter.
+The API's used are from https://newsapi.org/ and https://www.newscatcherapi.com/free-news-api .
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+![Alt text](Screenshot_20231110_191721.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# NewsThread
+![Alt text](Screenshot_20231110_191933.png)
